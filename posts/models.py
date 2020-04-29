@@ -12,7 +12,7 @@ class Post(models.Model):
     published_date = models.DateTimeField(
         blank=True,
         null=True,
-        default=timezone)
+        default=timezone.now)
     views = models.IntegerField(default=0)
     tag = models.CharField(
         max_length=30,
