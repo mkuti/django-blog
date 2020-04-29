@@ -93,3 +93,36 @@ __image__ ImageField, upload_to corresponds to directory created under media, im
 8. 4th url: edit_post name, r'^(/P<pk>\d+)/edit/$, post/id/edit
 
 ## CREATE TEMPLATES WITH CSS 
+1. create folder for templates at root level
+2. create base.html
+3. {% load static from staticfiles %} before DOCTYPE
+4. add doctype and boilerplate
+5. add links to custom css href="{% url 'css/custom.css %}" and bootstrap cdn 
+6. add {% block content %} and {% endblock %} inside body after navbar
+7. in navbar, for each nav-item, add {% url 'get_posts' %} or {% url 'new_post' %} in href 
+8. inside templates folder of posts app, add blogposts.html file
+9. add {% extends base.html %} {% block content %}
+10. {% for post in posts %}
+11. create html structure and in h3 element, add {{ post.title }}
+12. in p element, add {{ post.content|truncatewords:30 }} brief overview of post contents
+13. add url below to go and get more details: {% url 'post_detail' post.id %}
+14. {% endfor %}
+15. {% endblock %}
+16. create new file called post_detail.html
+17. add {% extends base.html %} {% block content %}
+18. {% if post.image %} >> have img element with src='/media/{{ post.image }}' >> {% endif %}
+19. in h3 element, add {{ post.title }}, {{ post.content }} inside p element, etc...
+20. add 2 buttons at the bottom: Back to Blog <a href="{% url 'get_posts' %}"> and Edit post <a href=" {% url 'edit_post' post.id %}">
+21. pip3 install django-forms-bootstrap
+22. add django_forms_bootstrap inside settings.py under INSTALLED_APPS
+23. Create new file blogpostform.html
+24. add {% extends base.html %}
+25. add {% load bootstrap_tags %}
+26. add {% block content %}
+27. create form with method of POST and enctype="multipart/form-data"
+28. add {% csrf_token %}
+29. add {{ form | as_bootstrap }}
+30. add submit button to save
+
+## CREATE SUPERUSER
+1. python3 manage.py createsuperuser
