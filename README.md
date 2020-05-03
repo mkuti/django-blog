@@ -19,7 +19,7 @@ A simple blog app written using Django
 12. in settings.py 
 > add app in INSTALLED_APPS
 > add 'DIRS': [os.path.join(BASE_DIR, 'templates')], inside templates
-> to serve out media files, add new context processor under OPTIONS
+> to serve out media files, add new context processor under OPTIONS: django.template.context_processors.media
     >> STATIC_URL = '/static/' and STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
     >> MEDIA_URL = '/media/' and MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    
 13. add 'localhost' to ALLOWED_HOSTS
@@ -101,7 +101,7 @@ __image__ ImageField, upload_to corresponds to directory created under media, im
 6. add {% block content %} and {% endblock %} inside body after navbar
 7. in navbar, for each nav-item, add {% url 'get_posts' %} or {% url 'new_post' %} in href 
 8. inside templates folder of posts app, add blogposts.html file
-9. add {% extends base.html %} {% block content %}
+9. add {% extends 'base.html' %} {% block content %}
 10. {% for post in posts %}
 11. create html structure and in h3 element, add {{ post.title }}
 12. in p element, add {{ post.content|truncatewords:30 }} brief overview of post contents
@@ -109,14 +109,14 @@ __image__ ImageField, upload_to corresponds to directory created under media, im
 14. {% endfor %}
 15. {% endblock %}
 16. create new file called post_detail.html
-17. add {% extends base.html %} {% block content %}
+17. add {% extends 'base.html' %} {% block content %}
 18. {% if post.image %} >> have img element with src='/media/{{ post.image }}' >> {% endif %}
 19. in h3 element, add {{ post.title }}, {{ post.content }} inside p element, etc...
 20. add 2 buttons at the bottom: Back to Blog <a href="{% url 'get_posts' %}"> and Edit post <a href=" {% url 'edit_post' post.id %}">
 21. pip3 install django-forms-bootstrap
 22. add django_forms_bootstrap inside settings.py under INSTALLED_APPS
 23. Create new file blogpostform.html
-24. add {% extends base.html %}
+24. add {% extends 'base.html' %}
 25. add {% load bootstrap_tags %}
 26. add {% block content %}
 27. create form with method of POST and enctype="multipart/form-data"
@@ -126,3 +126,4 @@ __image__ ImageField, upload_to corresponds to directory created under media, im
 
 ## CREATE SUPERUSER
 1. python3 manage.py createsuperuser
+memememe

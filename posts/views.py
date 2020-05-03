@@ -3,6 +3,7 @@ from django.utils import timezone
 from .models import Post
 from .forms import BlogPostForm
 
+
 def get_posts(request):
     """
     Create a view that will return a list
@@ -13,17 +14,19 @@ def get_posts(request):
         published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'blogposts.html', {'posts': posts})
 
+
 def post_detail(request, pk):
     """
-    Create a view that returns a single 
+    Create a view that returns a single
     post object based on the post ID (pk) and
-    render it to the 'postdetail.html' template.
+    render it to the 'post_detail.html' template.
     Or return a 404 error (if the post is not found)
     """
     post = get_object_or_404(Post, pk=pk)
     post.views += 1
     post.save()
-    return render(request, 'postdetail.html', {'post': post})
+    return render(request, 'post_detail.html', {'post': post})
+
 
 def create_or_edit_post(request, pk=None):
     """
