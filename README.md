@@ -164,3 +164,12 @@ memememe
 9. pip3 install gunicorn
 10. pip3 freeze > requirements.txt
 11. add 'mapi-django-blog.herokuapp.com' to ALLOWED_HOSTS
+12. Git add, commit and push 
+13. in Heroku, connect to github, to the chosen repo, manual deploy  and deploy branch
+14. Set automatic deploy
+
+## EXTRA 
+Heroku is an ephemeral file system
+everytime the worker restarts, once every 12hrs, all user uploaded content (not the one deployed from GitHub) is deleted
+If user add an image to a post, image only lasts for 12hrs before it gets deleted
+We would need to store media files on external source
