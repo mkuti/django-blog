@@ -127,3 +127,24 @@ __image__ ImageField, upload_to corresponds to directory created under media, im
 ## CREATE SUPERUSER
 1. python3 manage.py createsuperuser
 memememe
+
+
+## CREATE HEROKU APP 
+1. Create env.py with os.environ.setdefault('SECRET_KEY', 'secret-key-here')
+2. add env.py to .gitignore
+3. in settings.py, add >> if os.path.exists('env.py'): import env
+4. SECRET_KEY = os.environ.get('SECRET_KEY')
+5. Create app in Europe on heroku dashboard
+6. Add add-ons, Heroku Postgres database
+7. Add SECRET_KEY environment variable on heroku settings
+8. On terminal, pip3 install dj-database-url psycopg2
+>> libraries allowing us to connect to database using url instead of standard database driver used by Django
+9. pip3 freeze > requirements.txt
+10. Update settings.py to use new database url 
+11. comment out default databases
+12. add DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+13. import dj_database_url
+14. Add database url in env.py for running app locally, copy and paste database_url from heroku
+15. os.environ.setdefault('DATABASE_URL', 'add_database_url_here')
+16. python3 manage.py migrate to move all tables to new heroku database
+17. still need to import data from django database to heroku database
