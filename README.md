@@ -148,3 +148,19 @@ memememe
 15. os.environ.setdefault('DATABASE_URL', 'add_database_url_here')
 16. python3 manage.py migrate to move all tables to new heroku database
 17. still need to import data from django database to heroku database
+
+## HOST OUR STATIC FILES
+>> Whitenoise is a package that helps us host our static files on Heroku, allows us to host our CSS and JavaScript files on Heroku
+1. pip3 install whitenoise
+2. pip3 freeze > requirements.txt
+3. add in settings.py: 'whitenoise.middleware.WhiteNoiseMiddleware' under MIDDLEWARE
+4. add STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') at the bottom of settings.py
+>> gives a collection point for our static files. When we deploy to Heroku, going to collect those into that location and deploy them into project.
+5. since we are not sending env.py to repository or Heroku, so Travis testing wont know the database url
+6. add if statement: <if 'DATABASE_URL' in os.environ: > >> use Heroku database stored in env.py
+7. else, use sqlite3 database
+>> if DATABASE_URL is in our environment, then we use it, if not, then we use SQLite instead which is already uploaded to github
+8. Create Procfile and add inside: web: gunicorn blog:wsgi:application
+9. pip3 install gunicorn
+10. pip3 freeze > requirements.txt
+11. add 'mapi-django-blog.herokuapp.com' to ALLOWED_HOSTS
